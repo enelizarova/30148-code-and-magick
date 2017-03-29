@@ -15,6 +15,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', 120, 40);
 
   var max = -1;
+  var maxIndex = -1;
 
   for (var i = 0 ; i < times.length; i++) {
     var time = times[i];
@@ -33,7 +34,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   for (var i = 0; i < times.length; i++) {
     ctx.fillText(times[i].toFixed(0), initialX + (indent + barWidth) * i, initialY - histogramHeight - 20);
-    ctx.fillStyle = 'rgba(' + 0 + ',' + 0 + ',' + 255 + ',' + Math.random() +')';
+    ctx.fillStyle = 'rgba (' + 0 + ',' + 0 + ',' + 255 + ',' + Math.random() +')';
     ctx.fillRect(initialX + (indent + barWidth) * i, initialY, barWidth, -(times[i] * step));
     ctx.fillStyle = '#000000';
     ctx.fillText(names[i], initialX + (indent + barWidth) * i, initialY + 10);
