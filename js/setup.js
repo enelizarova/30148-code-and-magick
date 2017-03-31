@@ -11,54 +11,36 @@ var WIZARDS_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', '�
 var WIZARDS_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-var countNames = function () {
-  return ((WIZARDS_NAMES.length - 1) * Math.random()).toFixed(0);
-};
+var wizards = [];
+var fragment = document.createDocumentFragment();
 
-var countSurnames = function () {
-  return ((WIZARDS_SURNAMES.length - 1) * Math.random()).toFixed(0);
-};
-var countCoatColors = function () {
-  return ((COAT_COLORS.length - 1) * Math.random()).toFixed(0);
-};
-var countEyesColors = function () {
-  return ((EYES_COLORS.length - 1) * Math.random()).toFixed(0);
-};
-
-var wizards = [
-  {
-    name: WIZARDS_NAMES[countNames()] + ' ' + WIZARDS_SURNAMES[countSurnames()],
-    coatColor: COAT_COLORS[countCoatColors()],
-    eyesColor: EYES_COLORS[countEyesColors()]
-  },
-  {
-    name: WIZARDS_NAMES[countNames()] + ' ' + WIZARDS_SURNAMES[countSurnames()],
-    coatColor: COAT_COLORS[countCoatColors()],
-    eyesColor: EYES_COLORS[countEyesColors()]
-  },
-  {
-    name: WIZARDS_NAMES[countNames()] + ' ' + WIZARDS_SURNAMES[countSurnames()],
-    coatColor: COAT_COLORS[countCoatColors()],
-    eyesColor: EYES_COLORS[countEyesColors()]
-  },
-  {
-    name: WIZARDS_NAMES[countNames()] + ' ' + WIZARDS_SURNAMES[countSurnames()],
-    coatColor: COAT_COLORS[countCoatColors()],
-    eyesColor: EYES_COLORS[countEyesColors()]
-  }
-];
-
-var renderWizard = function (wizard) {
+function getRandomValue(arr) {
+  var index = ((arr.length - 1) * Math.random()).toFixed(0);
+  return arr[index];
+}
+function createWizard() {
+  return {
+    name: getRandomValue(WIZARDS_NAMES) + ' ' + getRandomValue(WIZARDS_SURNAMES),
+    coatColor: getRandomValue(COAT_COLORS),
+    eyesColor: getRandomValue(EYES_COLORS)
+  };
+}
+function renderWizard(wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
   wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
-  return wizardElement;
-};
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
+  return wizardElement;
+}
+
+for (var i = 1; i <= 4; i++) {
+  wizards.push(createWizard());
+}
+
+
+for (var j = 0; j < wizards.length; j++) {
+  fragment.appendChild(renderWizard(wizards[j]));
 }
 similarListElement.appendChild(fragment);
 
